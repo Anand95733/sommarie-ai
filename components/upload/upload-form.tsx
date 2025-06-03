@@ -83,7 +83,7 @@ export default function UploadForm() {
         description: "Hang tight, Our AI is reading through your document! ✨",
       });
 
-      const uploadFileUrl = uploadResponse[0].serverData.fileUrl;
+      const uploadFileUrl = uploadResponse[0].serverData.file;
 
       //parse the pdf using lang chain.
 
@@ -115,7 +115,7 @@ export default function UploadForm() {
         //save the summary to the Database.
         storeResult = await storePdfSummaryAction({
           summary: data.summary,
-          fileUrl: uploadResponse[0].serverData.file.url,
+          fileUrl: uploadResponse[0].serverData.file,
           title: formatedFileNameAsTitle,
           fileName: file.name,
         });

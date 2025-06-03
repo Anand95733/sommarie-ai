@@ -38,4 +38,4 @@ export async function getSubcriptionStatus(user: User){
 
     return hasSubcription;
 }
-    
+
