@@ -39,8 +39,8 @@ export default function UploadForm() {
         description: err.message,
       });
     },
-    onUploadBegin: (file) => {
-      console.log("upload has begun for", file);
+    onUploadBegin: (data) => {
+      console.log("upload has begun for", data);
     },
   });
 
@@ -83,7 +83,7 @@ export default function UploadForm() {
         description: "Hang tight, Our AI is reading through your document! ✨",
       });
 
-      const uploadFileUrl = uploadResponse[0].serverData.file;
+      const uploadFileUrl = uploadResponse[0].serverData.fileUrl;
 
       //parse the pdf using lang chain.
 
@@ -115,7 +115,7 @@ export default function UploadForm() {
         //save the summary to the Database.
         storeResult = await storePdfSummaryAction({
           summary: data.summary,
-          fileUrl: uploadResponse[0].serverData.file,
+          fileUrl: uploadResponse[0].serverData.fileUrl,
           title: formatedFileNameAsTitle,
           fileName: file.name,
         });
