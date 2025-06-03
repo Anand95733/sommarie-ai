@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sommaire – Transform PDFs into a beautiful reel of impactful summaries with the power of AI! 🚀
 
-## Getting Started
+Built with Next.js 15 App Router, Clerk for Auth, React, OpenAI GPT-4, Langchain, ShadCN UI components, Tailwind CSS 4, NeonDB, UploadThing, Stripe for payments, TypeScript, TailwindCSS and more.
 
-First, run the development server:
+![Project Image](https://sommaire.vercel.app/og-image.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🛠️ Core Technologies:
+- **Next.js 15** App Router for server-side rendering, routing, and API endpoints with Server Components
+- ⚛️ **React** for building interactive user interfaces with reusable components
+- 🔐 **Clerk** for secure authentication with Passkeys, Github, and Google Sign-in
+- 🤖 **GPT-4** powered summarization with contextual understanding and emoji-enhanced output
+- 📄 **Langchain** for PDF parsing, text extraction, and document chunking
+- 🧩 **ShadCN UI** for accessible, customizable React components
+- 🗄️ **NeonDB (PostgreSQL)** for serverless database storage of summaries and user data
+- 📤 **UploadThing** for secure PDF uploads (up to 32MB) and file management
+- 💳 **Stripe** for subscription management and secure payment processing
+- 🟦 **TypeScript** for static typing and enhanced development experience
+- 🎨 **TailwindCSS 4** for utility-first, responsive styling
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🚀 Application Features:
+- 📑 Clear, structured summaries with key points and insights
+- 🖼️ Beautiful, interactive summary viewer with progress tracking
+- 🔒 Secure file handling and processing
+- 🛡️ Protected routes and API endpoints
+- 💸 Flexible pricing plans (Basic and Pro)
+- 🔔 Webhook implementation for Stripe events
+- 📊 User dashboard for managing summaries
+- 📱 Responsive design for mobile and desktop
+- 🔄 Real-time updates and path revalidation
+- 🚀 Production-ready deployment
+- 🛎️ Toast notifications for upload status, processing updates, and error handling
+- ⚡ Performance optimizations
+- 🌐 SEO-friendly summary generation
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To get started with this project:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Fork the repository**
+2. **Copy the `.env.example` variables into a separate `.env.local` file**
+3. **Create the required credentials:**
+   - OpenAI API key
+   - Clerk authentication
+   - UploadThing configuration
+   - Stripe payment setup
+   - NeonDB database connection
 
-## Deploy on Vercel
+4. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+5. **Database setup:**
+   - See `schema.sql` for the required tables.
+   - Use a PostgreSQL database and run the SQL in `schema.sql`.
+6. **Run locally:**
+   ```sh
+   npm run dev
+   ```
+7. **Deploy:**
+   - Push your code to GitHub.
+   - Connect your repo to [Vercel](https://vercel.com/).
+   - Set the same environment variables in the Vercel dashboard.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌀 How to Fork and Clone
+
+1. Click the "Fork" button in the top right corner of this repository to create your own copy
+2. Clone your forked repository to your local machine
+3. Install dependencies with `npm install`
+4. Set up your environment variables
+5. Run the development server with `npm run dev`
+
+---
+
+## 🙏 Acknowledgements
+
+- [Clerk](https://go.clerk.com/5qQWrFA) for authentication
+- [OpenAI](https://openai.com) for GPT-4 API
+- [Langchain](https://js.langchain.com) for document processing
+- [ShadCN UI](https://ui.shadcn.com/) for components
+
+---
+
+## 📄 License
+[MIT] (https://choosealicense.com/licenses/mit/)
+
+---
+
+**Sommaire** — Save time. Read smarter. Summarize anything.
