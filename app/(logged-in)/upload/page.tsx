@@ -7,7 +7,6 @@ import { containerVariants } from "@/utils/constants";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-
 export default async function Page() {
   const user = await currentUser();
 
@@ -17,10 +16,10 @@ export default async function Page() {
   const userId = user.id;
 
   const {hasReachedLimit} = await hasReachedUploadLimit(userId);
-// todo 
-  // if(hasReachedLimit){
-  //   redirect('/dashboard')
-  // }
+
+  if(hasReachedLimit){
+    redirect('/dashboard')
+  }
   return (
     <section className="min-h-screen">
       <BgGradient />
