@@ -5,11 +5,13 @@ import { useUploadThing } from "@/utils/uploadthing";
 import { toast } from "sonner";
 import {
   generatePdfSummary,
+  generatePdfText,
   storePdfSummaryAction,
 } from "@/actions/upload-actions";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSkeleton from "./loading-skeleton";
+import { formatFileNameAsTitle } from "@/utils/format-utils";
 
 const schema = z.object({
   file: z
@@ -68,8 +70,8 @@ export default function UploadForm() {
 
       //upload the file to upolading.
 
-      const resp = await startUpload([file]);
-      if (!resp) {
+      const uploadResponse = await startUpload([file]);
+      if (!uploadResponse) {
         toast.error("Something  went wrong", {
           description: "Please use a different file",
         });
@@ -80,33 +82,50 @@ export default function UploadForm() {
       toast.success("📑 Processing PDF", {
         description: "Hang tight, Our AI is reading through your document! ✨",
       });
-      //parse the pdf using lang chain.
-      const result = await generatePdfSummary(resp);
-      const { data = null, message = null } = result || {};
-      if (data) {
-        let storeResult: any;
-        toast.success("📑 Saving PDF...", {
-          description: "Hang tight, We are saving your summary! ✨",
-        });
 
-        if (data.summary) {
-          //save the summary to the Database.
-          storeResult = await storePdfSummaryAction({
-            summary: data.summary,
-            fileUrl: resp[0].serverData.file.url,
-            title: data.title,
-            fileName: file.name,
-          });
-          console.log(storeResult);
-        }
-        toast.success("✨ Summary Generated!", {
-          description:
-            "Your PDF has been successfully summarized and saved! ✨",
+      const uploadFileUrl = uploadResponse[0].serverData.fileUrl;
+
+      //parse the pdf using lang chain.
+
+      let storeResult: any;
+      
+
+      const formatedFileNameAsTitle = formatFileNameAsTitle(file.name);
+
+      const result = await generatePdfText({
+        fileUrl: uploadFileUrl,
+      });
+
+      toast.success("📑 Generating PDF Summary", {
+        description: "Hang tight, Our AI is reading through your document! ✨",
+      });
+      // call ai service
+
+      const summaryResult = await generatePdfSummary({
+        pdfText:result?.data?.pdfText ?? '',
+        fileName: formatedFileNameAsTitle,
+      });
+ 
+      toast.success("📑 Saving PDF Summary", {
+        description: "Hang tight, We are saving your summary! ✨",
+      });
+
+      const { data = null, message = null } = summaryResult || {};
+      if (data?.summary) {
+        //save the summary to the Database.
+        storeResult = await storePdfSummaryAction({
+          summary: data.summary,
+          fileUrl: uploadResponse[0].serverData.file.url,
+          title: formatedFileNameAsTitle,
+          fileName: file.name,
         });
-        formRef.current?.reset();
-        //resirect to the [id] summary page.
-        router.push(`/summaries/${storeResult.data.id}`);
       }
+      toast.success("✨ Summary Generated!", {
+        description: "Your PDF has been successfully summarized and saved! ✨",
+      });
+      formRef.current?.reset();
+      //resirect to the [id] summary page.
+      router.push(`/summaries/${storeResult.data.id}`);
     } catch (error) {
       setIsLoading(false);
       console.error("Error occurred", error);
@@ -119,7 +138,7 @@ export default function UploadForm() {
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-gray-200 dark:border-gray-800"/>
+          <div className="w-full border-t border-gray-200 dark:border-gray-800" />
         </div>
         <div className="relative flex justify-center">
           <span className="bg-background px-3 text-muted-foreground text-sm">
@@ -147,7 +166,7 @@ export default function UploadForm() {
               </span>
             </div>
           </div>
-          <LoadingSkeleton/>
+          <LoadingSkeleton />
         </>
       )}
     </div>
