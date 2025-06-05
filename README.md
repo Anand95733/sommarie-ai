@@ -1,3 +1,32 @@
+# **SOMMARIE-AI**
+
+*Transform PDFs into insights, effortlessly and intelligently.*
+
+<p align="center">
+  <img src="https://img.shields.io/badge/last%20commit-last%20tuesday-informational?style=flat-square&logo=github" />
+  <img src="https://img.shields.io/badge/typescript-93.5%25-blue?style=flat-square&logo=typescript" />
+  <img src="https://img.shields.io/badge/languages-4-blue?style=flat-square&logo=code" />
+</p>
+
+---
+
+### *Built with the tools and technologies:*
+
+<p align="center">
+  <img src="https://img.shields.io/badge/JSON-black?logo=json&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/Markdown-black?logo=markdown&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/npm-red?logo=npm&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/Autoprefixer-ff69b4?logo=autoprefixer&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/PostCSS-ff6c37?logo=postcss&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/JavaScript-f7df1e?logo=javascript&logoColor=black&style=flat-square" />
+  <img src="https://img.shields.io/badge/React-61dafb?logo=react&logoColor=black&style=flat-square" />
+  <img src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/Zod-3c1e6e?logo=zod&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/Stripe-635bff?logo=stripe&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/ESLint-4b32c3?logo=eslint&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/date-fns-ff4088?logo=date-fns&logoColor=white&style=flat-square" />
+</p>
+
 # Sommaire – Transform PDFs into a beautiful reel of impactful summaries with the power of AI! 🚀
 
 Built with Next.js 15 App Router, Clerk for Auth, React, OpenAI GPT-4, Langchain, ShadCN UI components, Tailwind CSS 4, NeonDB, UploadThing, Stripe for payments, TypeScript, TailwindCSS and more.
