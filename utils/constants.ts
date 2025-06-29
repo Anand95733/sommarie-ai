@@ -11,8 +11,8 @@ export const PricingPlans = [
         "Email support"
       ],
       id: "basic",
-      paymentLink: isDev?'https://buy.stripe.com/test_8wM3f99UHgJI2Hu3cc':'',
-      priceId: isDev?'price_1RLQdSGgQM7gysBrbevGz7Vh':''
+      paymentLink: 'https://buy.stripe.com/test_8wM3f99UHgJI2Hu3cc',
+      priceId: 'price_1RLQdSGgQM7gysBrbevGz7Vh'
     },
     {
       name: "Pro",
@@ -25,8 +25,8 @@ export const PricingPlans = [
         "Mardown Export"
       ],
       id: "pro",
-      paymentLink: isDev?'https://buy.stripe.com/test_00g3f90k75101Dq001':'',
-      priceId: isDev?'price_1RLQdSGgQM7gysBrHjeLrbtt':''
+      paymentLink: 'https://buy.stripe.com/test_00g3f90k75101Dq001',
+      priceId: 'price_1RLQdSGgQM7gysBrHjeLrbtt'
     }
   ];
 
