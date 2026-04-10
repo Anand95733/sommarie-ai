@@ -3,17 +3,27 @@ import Stripe from "stripe";
 import { handleCheckoutSessionCompleted, handleSubscriptionDeleted } from "@/lib/payments";
 import { sub } from "date-fns";
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set in environment variables');
-}
+// Initialize Stripe lazily to avoid build-time errors
+let stripe: Stripe | null = null;
 
-if (!process.env.STRIPE_WEBHOOK_SECRET) {
-  throw new Error('STRIPE_WEBHOOK_SECRET is not set in environment variables');
+function getStripe(): Stripe {
+  if (!stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is not set in environment variables');
+    }
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  }
+  return stripe;
 }
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const POST = async (req: NextRequest) => {
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json(
+      { error: 'STRIPE_WEBHOOK_SECRET is not configured' },
+      { status: 500 }
+    );
+  }
+
   const payload = await req.text();
   const sig = req.headers.get("stripe-signature");
 
@@ -25,22 +35,23 @@ export const POST = async (req: NextRequest) => {
   }
 
   try {
-    const event = stripe.webhooks.constructEvent(
+    const stripeInstance = getStripe();
+    const event = stripeInstance.webhooks.constructEvent(
       payload,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET
     );
 
     switch (event.type) {
       case 'checkout.session.completed':
         console.log('Checkout session completed');
-        
+
         const sessionId = event.data.object.id;
-        const session = await stripe.checkout.sessions.retrieve(sessionId,{
+        const session = await stripeInstance.checkout.sessions.retrieve(sessionId, {
           expand: ['line_items']
         });
-        
-        await handleCheckoutSessionCompleted({session, stripe});
+
+        await handleCheckoutSessionCompleted({ session, stripe: stripeInstance });
 
 
         break;
@@ -48,7 +59,7 @@ export const POST = async (req: NextRequest) => {
         const subscription = event.data.object;
         const subscriptionId = event.data.object.id;
 
-        await handleSubscriptionDeleted({ subscriptionId, stripe });
+        await handleSubscriptionDeleted({ subscriptionId, stripe: stripeInstance });
         console.log(subscription);
         break;
       default:
